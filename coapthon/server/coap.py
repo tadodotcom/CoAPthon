@@ -4,6 +4,7 @@ import random
 import socket
 import struct
 import threading
+import traceback
 
 from coapthon import defines
 from coapthon.layers.blocklayer import BlockLayer
@@ -186,9 +187,18 @@ class CoAP(object):
                         with transaction:
                             self._blockLayer.receive_empty(message, transaction)
                             self._observeLayer.receive_empty(message, transaction)
-
+            except Exception as e:
+                logger.error("Exception received in listen")
+                logger.exception(traceback.format_exc())
+                continue
             except RuntimeError:
                 logger.exception("Exception with Executor")
+        try:
+            # Python does not close the OS FD on socket.close()
+            # Ensure OS socket is closed with shutdown to prevent FD leak
+            self._socket.shutdown(socket.SHUT_RDWR)
+        except socket.error:
+            pass
         self._socket.close()
 
     def close(self):
@@ -255,7 +265,12 @@ class CoAP(object):
             host, port = message.destination
             logger.debug("send_datagram - " + str(message))
             serializer = Serializer()
-            message = serializer.serialize(message)
+            try:
+                message = serializer.serialize(message)
+            except Exception as e:
+                logger.error("Exception received in send_datagram")
+                logger.exception(traceback.format_exc())
+
             if self.multicast:
                 self._unicast_socket.sendto(message, (host, port))
             else:
