@@ -127,6 +127,7 @@ class OptionRegistry(object):
     PROXY_URI =     OptionItem(35, "Proxy-Uri",     STRING,  False, None)
     PROXY_SCHEME =  OptionItem(39, "Proxy-Schema",  STRING,  False, None)
     SIZE1 =         OptionItem(60, "Size1",         INTEGER, False, None)
+    VENDOR_SPECIFIC_OPTION_2048 = OptionItem(2048, "Vendor-specific-option-2048",  OPAQUE, False, None)
     RM_MESSAGE_SWITCHING = OptionItem(65524, "Routing", OPAQUE, False, None)
 
     LIST = {
@@ -149,6 +150,7 @@ class OptionRegistry(object):
         35: PROXY_URI,
         39: PROXY_SCHEME,
         60: SIZE1,
+        2048: VENDOR_SPECIFIC_OPTION_2048,
         65524: RM_MESSAGE_SWITCHING
 
     }
@@ -206,6 +208,7 @@ class Codes(object):
     CONTINUE = CodeItem(95, 'CONTINUE')
 
     BAD_REQUEST = CodeItem(128, 'BAD_REQUEST')
+    UNAUTHORIZED = CodeItem(129, 'UNAUTHORIZED')
     FORBIDDEN = CodeItem(131, 'FORBIDDEN')
     NOT_FOUND = CodeItem(132, 'NOT_FOUND')
     METHOD_NOT_ALLOWED = CodeItem(133, 'METHOD_NOT_ALLOWED')
@@ -237,6 +240,7 @@ class Codes(object):
         95: CONTINUE,
 
         128: BAD_REQUEST,
+        129: UNAUTHORIZED,
         131: FORBIDDEN,
         132: NOT_FOUND,
         133: METHOD_NOT_ALLOWED,
