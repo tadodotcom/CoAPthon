@@ -206,6 +206,7 @@ class Codes(object):
     CONTINUE = CodeItem(95, 'CONTINUE')
 
     BAD_REQUEST = CodeItem(128, 'BAD_REQUEST')
+    UNAUTHORIZED = CodeItem(129, 'UNAUTHORIZED')
     FORBIDDEN = CodeItem(131, 'FORBIDDEN')
     NOT_FOUND = CodeItem(132, 'NOT_FOUND')
     METHOD_NOT_ALLOWED = CodeItem(133, 'METHOD_NOT_ALLOWED')
@@ -237,6 +238,7 @@ class Codes(object):
         95: CONTINUE,
 
         128: BAD_REQUEST,
+        129: UNAUTHORIZED,
         131: FORBIDDEN,
         132: NOT_FOUND,
         133: METHOD_NOT_ALLOWED,
